@@ -62,10 +62,12 @@ function App() {
   );
 }
 
+// Loader
 function Loader() {
   return <p className="message">Loading...</p>;
 }
 
+// Header
 function Header({ showForm, setShowForm }) {
   const appTitle = "Today I Learned";
   return (
@@ -84,6 +86,7 @@ function Header({ showForm, setShowForm }) {
   );
 }
 
+// Validate URL for Source
 function isValidHttpUrl(string) {
   let url;
   try {
@@ -94,6 +97,7 @@ function isValidHttpUrl(string) {
   return url.protocol === "http:" || url.protocol === "https:";
 }
 
+// New Fact
 function NewFactForm({ setFacts, setShowForm }) {
   const [text, setText] = useState("");
   const [source, setSource] = useState("");
@@ -108,7 +112,7 @@ function NewFactForm({ setFacts, setShowForm }) {
 
     // 2. Check if data is valid. If so, create a new fact
     if (text && isValidHttpUrl(source) && category && textLength <= 200) {
-      // 3. Create a new fact object
+      // 3a. Create a new fact object
       // const newFact = {
       //  id: Math.round(Math.random() * 10000000),
       //  text,
@@ -120,7 +124,7 @@ function NewFactForm({ setFacts, setShowForm }) {
       //  createdIn: new Date().getFullYear(),
       // };
 
-      // 3. Upload fact to Supabase and receive the new fact object
+      // 3b. Upload fact to Supabase and receive the new fact object
       setIsUploading(true);
       const { data: newFact, error } = await supabase
         .from("facts")
@@ -175,6 +179,7 @@ function NewFactForm({ setFacts, setShowForm }) {
   );
 }
 
+// Filter Category
 function CategoryFilter({ setCurrentCategory }) {
   return (
     <aside>
@@ -204,6 +209,7 @@ function CategoryFilter({ setCurrentCategory }) {
   );
 }
 
+// List Facts
 function FactList({ facts, setFacts }) {
   if (facts.length === 0)
     return (
@@ -223,6 +229,7 @@ function FactList({ facts, setFacts }) {
   );
 }
 
+// Facts & Voting
 function Fact({ fact, setFacts }) {
   const [isUpdating, setIsUpdating] = useState(false);
   const isDisputed =
